@@ -1,38 +1,38 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 import json
 
 url = "https://www.hm.edu/studium_1/im_studium/mein_studium/verlauf/termine.de.html"
+tableSelector = 0
 
-
-# Laden der Webseite
+# init BeautifulSoup
 page = requests.get(url)
+# needs to be done to fix wrong table annotation of webpage to work properly with BeautifulSoup
+page = page.content.replace(b"/th", b"/td")
+soup = BeautifulSoup(page, 'html.parser')
 
-# Extrahieren des HTML-Inhalts
-soup = BeautifulSoup(page.content, 'html.parser')
+# find the div with the id "termine"
+pageElement = soup.find("div", {"id": "termine"})
 
-# Suchen der Tabelle im HTML
-table = soup.find_all('table')[0]
-# table = soup.find('table', class_='table paragraph-with-links')
-
-# Extrahieren der Tabellenzeilen
+# find all Tables in the div
+table = pageElement.find_all('table')[tableSelector]
+# extract the Name of the Semester from the button
+semesterType = [i.text for i in pageElement.findAll('button', class_='accordion-button collapsed')][tableSelector]
+# extract the cells
 rows = table.find_all('tr')
 
-# Initialisieren des leeren Arrays, um die Daten zu speichern
 data = []
-
-# Iterieren über die Tabellenzeilen und extrahieren der Daten
+# iterate through cells and insert data in array
 for row in rows:
     cols = row.find_all('td')
     cols = [col.text.strip() for col in cols]
     data.append(cols)
 
-# Ausgabe des Arrays mit den Daten
-print(data)
+
+def searchandclean (listtosearch, stringtosearch):
 
 
-def check_if_exists(stringToFind, arrayToSearch):
-    if stringToFind in arrayToSearch:
-        return ()
-    else:
-        print(str(stringToFind) + ' is not present in the list')
+
+
+    return
