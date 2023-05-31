@@ -1,28 +1,34 @@
 from DataParser import *
 from WebParser import *
 from exceptionHandler import *
+from datetime import datetime
 
 
-def jsonobjectassambler(webparser: WebParser, semester_num: int, semester_name: str):
+def json_object_assembler(webparser: WebParser, semester_num: int, semester_name: str):
     # create json for all events
     try:
-        web_parser_list = webparser.getdates(semester_num)
+        web_parser_list = webparser.get_dates(semester_num)
 
-        json_object = {"semesterType": webparser.getsemestertype(semester_num),
-                       "duration_of_semester": searchandformat(web_parser_list, "Dauer des Semesters"),
-                       "lecture_period": searchandformat(web_parser_list, "Vorlesungszeit"),
-                       "lecture_free_time": searchandformat(web_parser_list, "Vorlesungsfreie Zeit"),
-                       "exam_registration": searchandformat(web_parser_list, "Prüfungsanmeldung"),
-                       "exam_period_start": searchandformat(web_parser_list, "Prüfungszeitraum"),
-                       "grades_release": searchandformat(web_parser_list, "Notenbekanntgabe"),
-                       "re-registration_for_next_semester": searchandformat(web_parser_list, "Rückmeldung"),
-                       "recentData": True
+        # noinspection PyPep8
+        json_object = {"semester_type": webparser.get_semester_type(semester_num),
+                       "duration_of_semester": search_and_format(web_parser_list, "Dauer des Semesters"),
+                       "lecture_period": search_and_format(web_parser_list, "Vorlesungszeit"),
+                       "lecture_free_time": search_and_format(web_parser_list, "Vorlesungsfreie Zeit"),
+                       "exam_registration": search_and_format(web_parser_list, "Prüfungsanmeldung"),
+                       "exam_period_start": search_and_format(web_parser_list, "Prüfungszeitraum"),
+                       "grades_release": search_and_format(web_parser_list, "Notenbekanntgabe"),
+                       "re-registration_for_next_semester": search_and_format(web_parser_list, "Rückmeldung"),
+                       "1-st_AW_subject_draw_lot": search_and_format(web_parser_list, "Belegung Online-Los-Durchgang I"),
+                       "2-st_AW_subject_draw_lot": search_and_format(web_parser_list, "Belegung Online Losdurchgang II"),
+                       "start_of_AW_lectures": search_and_format(web_parser_list, "Vorlesungsbeginn AW"),
+                       "time_of_last_update": datetime.utcnow().isoformat(),
+                       "recent_data": True
                        }
 
-        jsoncreator(json_object, semester_name, "all")
-        for item in json_object.items():
-            jsoncreator(item, semester_name, item[0])
-    except:
+        json_creator(json_object, semester_name, "all")
+        for item, data in json_object.items():
+            json_creator({item: data}, semester_name, item)
+    except AttributeError:
         parse_error()
 
 
@@ -32,5 +38,5 @@ try:
 except requests.ConnectionError:
     raise connection_error()
 
-jsonobjectassambler(web_parser, 0, "thisSemester")
-jsonobjectassambler(web_parser, 1, "nextSemester")
+json_object_assembler(web_parser, 0, "thisSemester")
+json_object_assembler(web_parser, 1, "nextSemester")

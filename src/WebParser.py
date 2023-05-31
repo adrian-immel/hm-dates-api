@@ -19,7 +19,7 @@ class WebParser:
         # find the div with the id "termine"
         self.page_element = soup.find("div", {"id": "termine"})
 
-    def getsemestertype(self, table_selector: int):
+    def get_semester_type(self, table_selector: int):
         """
         gives back the semester type of the given num of table on webpage
         0 = cur. sem. 1 = next sem.
@@ -31,7 +31,7 @@ class WebParser:
             table_selector]
         return semester_type.strip('\n')
 
-    def getdates(self, table_selector: int):
+    def get_dates(self, table_selector: int):
         """
 
         :param table_selector: specifies the tabel on webpage
