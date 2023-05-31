@@ -29,10 +29,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "updated files" --allow-empty)
+          git diff-index --quiet HEAD || (git commit -a -m "updated json with gh-actions" --allow-empty)
 
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main 
+          branch: gh-pages 
