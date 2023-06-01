@@ -2,7 +2,7 @@ name: webparser Job
 
 on:
   schedule:
-    - cron: '0 10 * * *' # At 02:00 every Day
+    - cron: '*/10 * * * *' # At 02:00 every Day
 
 jobs:
   build:
