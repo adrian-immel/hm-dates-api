@@ -25,17 +25,11 @@ jobs:
       - name: execute py script # run main.py
         run: python ./src/main.py
         
-      - name: commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "updated json with gh-actions" --allow-empty)
       - name: Commit files
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -a -m "auto puplish commit"
+          git commit -a -m "auto puplish commit" --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
