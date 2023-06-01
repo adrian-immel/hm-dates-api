@@ -33,6 +33,6 @@ jobs:
           git diff-index --quiet HEAD || (git commit -a -m "updated json with gh-actions" --allow-empty)
 
       - name: push changes
-      - uses: EndBug/add-and-commit@v7
+        uses: EndBug/add-and-commit@v7
         with:
           default_author: github_actions
