@@ -1,4 +1,4 @@
-name: webparser Job
+name: publish
 
 on:
   schedule:
@@ -33,7 +33,6 @@ jobs:
           git diff-index --quiet HEAD || (git commit -a -m "updated json with gh-actions" --allow-empty)
 
       - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
+      - uses: EndBug/add-and-commit@v7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages 
+          default_author: github_actions
