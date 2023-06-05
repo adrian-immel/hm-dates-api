@@ -1,5 +1,5 @@
-import sys
 import json
+import sys
 
 
 def modify_json():
