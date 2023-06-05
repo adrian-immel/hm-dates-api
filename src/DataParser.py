@@ -12,7 +12,7 @@ def json_creator(data, folder: str, filename: str):
     :param data: used to create json of
     :param folder: sub-folder of root project directory
     :param filename:  filename of the generated json file
-    :return: gives back the generated json created from the given data
+    :return: None
     """
 
     filename = (sys.path[0] + r'/../' + folder + '/' + filename + ".json")
@@ -21,7 +21,13 @@ def json_creator(data, folder: str, filename: str):
 
 
 def json_object_assembler(webparser: WebParser, semester_num: int, semester_name: str):
-    # create json for all events
+    """
+    creates a dict with all the json objects
+    :param webparser: Webparser Object
+    :param semester_num: semester table selector
+    :param semester_name: name of the selected semester
+    :return: None
+    """
     try:
         web_parser_list = webparser.get_dates(semester_num)
         event_list = event_creator(web_parser_list)
