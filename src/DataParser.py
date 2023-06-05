@@ -1,6 +1,7 @@
-import json
-import sys
-import datefinder
+from datetime import datetime
+from WebParser import *
+from exceptionHandler import *
+from objectDataParser import *
 
 
 def json_creator(data, folder: str, filename: str):
@@ -11,35 +12,56 @@ def json_creator(data, folder: str, filename: str):
     :param data: used to create json of
     :param folder: sub-folder of root project directory
     :param filename:  filename of the generated json file
-    :return: gives back the generated json created from the given data
+    :return: None
     """
 
     filename = (sys.path[0] + r'/../' + folder + '/' + filename + ".json")
     with open(filename, 'w') as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=4, default=lambda x: x.__dict__)
 
 
-def search_and_format(list_to_search: list, string_to_search: str):
+def json_object_assembler(webparser: WebParser, semester_num: int, semester_name: str):
     """
-    searches for string in first row of 2D list and formats the content of second row as date
-    :param list_to_search: Wants 2D list to search through
-    :param string_to_search: string that is searched for in list
-    :return: list of all dates
+    creates a dict with all the json objects
+    :param webparser: Webparser Object
+    :param semester_num: semester table selector
+    :param semester_name: name of the selected semester
+    :return: None
     """
-    return_list = []
-    for value in list_to_search:
-        if string_to_search in str(value[0]):
-            # filter out "to be announced" cells and replace it with None
-            if "wird zum Ende des" in str(value[1]):
-                return_list = None
-                break
-            # skip cells without data
-            if not value[1]:
-                continue
-            # extracts the dates
-            date_list = [list(datefinder.find_dates(i, first="day", strict=True)) for i in value[1]]
-            for dates in date_list:
-                # converts dates to iso format
-                return_list.append([j.isoformat() for j in dates])
-            break
-    return return_list
+    try:
+        web_parser_list = webparser.get_dates(semester_num)
+        event_list = event_creator(web_parser_list)
+
+        # noinspection PyPep8
+        tags_dict = {
+            "duration_of_semester": "Dauer des Semesters",
+            "lecture_period": "Vorlesungszeit",
+            "lecture_free_time": "Vorlesungsfreie Zeit",
+            "exam_registration": "Prüfungsanmeldung",
+            "exam_period_start": "Prüfungszeitraum",
+            "grades_release": "Notenbekanntgabe",
+            "re-registration_for_next_semester": "Rückmeldung",
+            "1-st_AW_subject_draw_lot": "Belegung Online-Los-Durchgang I",
+            "2-st_AW_subject_draw_lot": "Belegung Online Losdurchgang II",
+            "start_of_AW_lectures": "Vorlesungsbeginn AW",
+        }
+
+        for key, value in tags_dict.items():
+            set_tag(event_list, key, value)
+
+        json_object = {
+            "semester_type": webparser.get_semester_type(semester_num),
+            "events": event_list,
+            "time_of_last_update": datetime.utcnow().isoformat(),
+            "recent_data": True
+        }
+
+        json_creator(json_object, semester_name, "all")
+        json_creator({"semester_type": webparser.get_semester_type(semester_num), }, semester_name, "semester_type")
+        json_creator({"time_of_last_update": datetime.utcnow().isoformat()}, semester_name, "time_of_last_update")
+        json_creator({"recent_data": True}, semester_name, "recent_data")
+        for item in event_list:
+            if item.tag is not None:
+                json_creator(item, semester_name, item.tag)
+    except AttributeError:
+        parse_error()

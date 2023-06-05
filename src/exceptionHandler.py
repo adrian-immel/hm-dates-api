@@ -1,8 +1,12 @@
-import sys
 import json
+import sys
 
 
 def modify_json():
+    """
+    modifies json to make recent_data = false
+    :return: None
+    """
     semester_list = ["thisSemester", "nextSemester"]
     for i in semester_list:
         path = (sys.path[0] + r'/../' + i + "/all.json")
