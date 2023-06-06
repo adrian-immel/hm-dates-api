@@ -1,7 +1,8 @@
 from dataclasses import dataclass
+from datetime import date
 
 
 @dataclass
 class period:
-    start = None
-    end = None
+    start: date = None
+    end: date = None

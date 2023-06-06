@@ -20,17 +20,19 @@ def modify_json():
 
         path = (sys.path[0] + r'/../' + i + "/recent_data.json")
         with open(path, 'w') as f:
-            json.dump("recent_data", f, indent=4)
+            json.dump({"recent_data": False}, f, indent=4)
 
 
 def connection_error():
     modify_json()
-    raise AssertionError("Could not get webpage")
+    print("Could not get webpage")
+    exit()
 
 
 def parse_error():
     modify_json()
-    raise AttributeError("Could not parse webpage")
+    print("Could not parse webpage")
+    exit()
 
 
 class exceptionHandler(Exception):
