@@ -1,5 +1,7 @@
-import jsonpickle
 from datetime import datetime
+
+import jsonpickle
+
 from exceptionHandler import *
 from objectDataParser import *
 
