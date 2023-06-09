@@ -1,6 +1,7 @@
 from DataParser import *
 from WebParser import *
 from exceptionHandler import *
+from icalCreator import *
 
 # init web parser with url
 try:
@@ -15,6 +16,8 @@ try:
     semester_type_nextSemester = web_parser.get_semester_type(1)
     json_object_assembler(event_list_thisSemester, "thisSemester", semester_name_thisSemester)
     json_object_assembler(event_list_nextSemester, "nextSemester", semester_type_nextSemester)
+    create_ical(event_list_thisSemester)
+
 
 except:
     parse_error()
