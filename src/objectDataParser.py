@@ -1,4 +1,5 @@
 import datefinder
+
 import event
 import period
 
@@ -29,10 +30,10 @@ def event_creator(data_list: list):
                 is_start = 1
                 for date in date_list:
                     if is_start:
-                        new_period.start = date.isoformat()
+                        new_period.start = date
                         is_start = 0
                     else:
-                        new_period.end = date.isoformat()
+                        new_period.end = date.replace(minute=59, hour=23, second=59)
 
                 new_event.append(new_period)
         return_list.append(new_event)
