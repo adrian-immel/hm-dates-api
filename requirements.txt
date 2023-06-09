@@ -1,5 +1,5 @@
 datefinder~=0.7.3
 beautifulsoup4~=4.12.2
-requests~=2.28.2
+requests~=2.31.0
 jsonpickle~=3.0.1
 ics~=0.7.2
