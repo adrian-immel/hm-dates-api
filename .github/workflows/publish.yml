@@ -9,9 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content
-
+      - name: checkout gh-pages repo content
+        uses: actions/checkout@v3 
+        with:
+          ref: gh-pages
+      - name: checkout main repo content
+        uses: actions/checkout@v3 
+        with:
+          path: main
+          
+      - name: copy files
+        run: |
+          cp -r ./main/src ./
+          cp ./main/requirements.txt ./
+        
       - name: setup python
         uses: actions/setup-python@v4
         with:
@@ -22,9 +33,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: execute py script # run main.py
+      - name: execute py script 
         run: python ./src/main.py
         
+      - name: delete unnecessary files
+        run: |
+          rm -rf ./src
+          rm -f ./requirements.txt
+      
       - name: Commit files
         run: |
           git add -- ./thisSemester ./nextSemester ./ical
