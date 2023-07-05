@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dates-api:
+    image: ghcr.io/adriangeorgimmel/hm-dates-api:main
+    container_name: hm-dates-api
+    restart: unless-stopped
+    volumes:
+      - data:dates-api
+    depends_on:
+        - nginx
+  nginx:
+    image: nginx:latest
+    container_name: hm-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - data:/usr/share/nginx/html/dates-api
+
