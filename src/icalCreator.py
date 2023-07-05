@@ -42,6 +42,6 @@ def create_ical(data: list):
             ical_event.make_all_day()
             cal.events.add(ical_event)
     # write ical to file
-    filename = (sys.path[0] + r'/../' + "ical" + '/' + "calendar.ics")
+    filename = (sys.path[0] + r'/../dates-api/' + "ical" + '/' + "calendar.ics")
     with open(filename, 'w') as f:
         f.write(cal.serialize())

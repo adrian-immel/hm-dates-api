@@ -25,15 +25,12 @@ def modify_json():
 
 def connection_error():
     modify_json()
-    print("Could not get webpage")
-    exit()
+    raise ConnectionError("Could not get webpage")
 
 
 def parse_error():
     modify_json()
-    print("Could not parse webpage")
-    exit()
-
+    raise Exception("Could not get webpage")
 
 class exceptionHandler(Exception):
     pass
