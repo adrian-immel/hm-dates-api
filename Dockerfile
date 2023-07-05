@@ -9,4 +9,3 @@ ADD ./ ./
 RUN pip install -r ./requirements.txt
 #run python file
 CMD python ./src/main.py docker-mode
-VOLUME dates-api
