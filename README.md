@@ -8,7 +8,9 @@ The API can be hosted on GitHub Pages and is updated via the GitHub Actions scri
 You can host the API on your own server. Just use the provided docker image to tun it on your server.
 The docker image similarly updates the data every day at 02:00 UTC.
 Be careful the docker does not provide a webserver. You have to use a webserver like nginx to provide the API via HTTP.
-You can use the example docker-compose.yml to run the API Container on your server.
+You can use the example docker-compose.yml to run the API Container on your server. \
+In the container the files are located at /hm-dates-api/.
+
 
 ## API
 The data is available for the current and the next semester, to get the data for the current semester you have to send a GET request to the API with the path dates-api/thissemester/... \
