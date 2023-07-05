@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   schedule:
-    - cron: '*/5 * * * *' # every 5 min
+    - cron: '0 2 * * *' # at 02:00 every day
 
 
   # Allows you to run this workflow manually from the Actions tab
@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
+          # Upload json folders
           path: './dates-api'
       - name: Deploy to GitHub Pages
         id: deployment
