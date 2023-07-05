@@ -17,7 +17,7 @@ def json_creator(data, folder: str, filename: str):
     :return: None
     """
 
-    filename = (sys.path[0] + r'/../' + folder + '/' + filename + ".json")
+    filename = (sys.path[0] + r'/../dates-api/' + folder + '/' + filename + ".json")
     json_object = jsonpickle.encode(data, unpicklable=False, indent=4)
     with open(filename, 'w') as f:
         f.write(json_object)
