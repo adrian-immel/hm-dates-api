@@ -13,11 +13,11 @@ In the container the files are located at /hm-dates-api/.
 
 
 ## API
-The data is available for the current and the next semester, to get the data for the current semester you have to send a GET request to the API with the path dates-api/thissemester/... \
-To get the data for the next semester you have to send a GET request to the API with the path dates-api/nextsemester/...
+The data is available for the current and the next semester, to get the data for the current semester you have to send a GET request to the API with the path hm-dates-api/thissemester/... \
+To get the data for the next semester you have to send a GET request to the API with the path hm-dates-api/nextsemester/... \
 Example for a GET request to get all the data for the current semester:
 ```http
-GET https://YOURDOMAIN/dates-api/thissemester/all.json
+GET https://YOURDOMAIN/hm-dates-api/thissemester/all.json
 ```
 The Attributes of the JSON are: For example for the Event lecture_free_period:
 ```json
