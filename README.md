@@ -17,7 +17,7 @@ The data is available for the current and the next semester, to get the data for
 To get the data for the next semester you have to send a GET request to the API with the path hm-dates-api/nextsemester/... \
 Example for a GET request to get all the data for the current semester:
 ```http
-GET https://YOURDOMAIN/hm-dates-api/thissemester/all.json
+GET https://YOURDOMAIN/hm-dates-api/thisSemester/all.json
 ```
 The Attributes of the JSON are: For example for the Event lecture_free_period:
 ```json
