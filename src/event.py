@@ -5,6 +5,12 @@ import period
 
 
 @dataclass
+class EventWithSingleDate:
+    title: str
+    date: period
+
+
+@dataclass
 class event:
     title: str
     dates: list[period] = field(default_factory=list)
@@ -19,3 +25,13 @@ class event:
 
     def append(self, item_to_append):
         self.dates.append(item_to_append)
+
+    def split(self) -> list[EventWithSingleDate]:
+        events= []
+        for item in self.dates:
+            events.append(EventWithSingleDate(
+                title=self.title,
+                date=item,
+            ))
+
+        return events

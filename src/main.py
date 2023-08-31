@@ -6,6 +6,9 @@ from schedule import every, repeat, run_pending
 import time
 import sys
 
+from eventSplitter import split_events
+
+
 @repeat(every().day.at("02:00"))
 def job():
     # init web parser with url
@@ -21,6 +24,7 @@ def job():
         json_object_assembler(event_list_thisSemester, "thisSemester", semester_name_thisSemester)
         json_object_assembler(event_list_nextSemester, "nextSemester", semester_type_nextSemester)
         create_ical(event_list_thisSemester)
+        split_events(event_list_thisSemester)
         print("job run at", time.time())
 
 
