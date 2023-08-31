@@ -9,6 +9,7 @@ def split_events(data: list):
 
     for event in data:
         events.extend(event.split())
-        filename = (sys.path[0]+r'/../dates-api/thisSemester/split.json')
-        with open(filename, 'w') as f:
-            f.write(jsonpickle.encode(events, unpicklable=False, indent=4))
+
+    filename = (sys.path[0] + r'/../dates-api/thisSemester/split.json')
+    with open(filename, 'w') as f:
+        f.write(jsonpickle.encode(events, unpicklable=False, indent=4))
