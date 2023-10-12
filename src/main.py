@@ -26,7 +26,7 @@ def job():
 
         json_object_assembler(event_list_thisSemester, "thisSemester", semester_name_thisSemester)
         json_object_assembler(event_list_nextSemester, "nextSemester", semester_type_nextSemester)
-        create_ical(event_list_thisSemester)
+        create_ical(event_list_thisSemester + event_list_nextSemester)
         print("job run at", time.time())
 
 
